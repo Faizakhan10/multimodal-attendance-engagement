@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A demo dashboard for student attendance and classroom engagement." />
+  <title>Attendly — Attendance & Engagement</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">A</span><span>attendly<span class="brand-dot">.</span></span></div>
+    <div class="workspace-label">WORKSPACE</div>
+    <button class="nav-item active" data-view="overview"><span>▦</span> Overview</button>
+    <button class="nav-item" data-view="students"><span>♙</span> Students</button>
+    <button class="nav-item" data-view="attendance"><span>✓</span> Attendance</button>
+    <button class="nav-item" data-view="engagement"><span>◉</span> Engagement</button>
+    <div class="sidebar-bottom">
+      <div class="help-card"><div class="help-icon">✦</div><strong>Project demo</strong><p>Sample data is stored in this browser. No real student data is uploaded.</p></div>
+      <div class="profile"><div class="avatar">AD</div><div><strong>Admin Demo</strong><small>Project workspace</small></div><span class="profile-dots">•••</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">EDUCATION / DASHBOARD</div><h1 id="page-title">Overview</h1></div>
+      <div class="top-actions"><span class="date-pill" id="today-label">Today</span><button class="button button-primary" id="quick-add">＋ Add student</button></div>
+    </header>
+
+    <section class="welcome-row">
+      <div><h2>Good day, Admin <span class="wave">✦</span></h2><p>Here’s what’s happening in your classroom today.</p></div>
+      <div class="class-selector"><span class="class-dot"></span><span>Class 10-A</span><span>⌄</span></div>
+    </section>
+
+    <section class="stats-grid">
+      <article class="stat-card"><div class="stat-top"><span>Total students</span><span class="stat-icon purple">♙</span></div><div class="stat-value" id="total-students">24</div><div class="stat-foot"><span class="trend">↗</span> Learner records</div></article>
+      <article class="stat-card"><div class="stat-top"><span>Present today</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="present-count">19</div><div class="stat-foot"><span class="trend">↗</span> <span id="present-percent">79%</span> attendance rate</div></article>
+      <article class="stat-card"><div class="stat-top"><span>Absent today</span><span class="stat-icon orange">↘</span></div><div class="stat-value" id="absent-count">3</div><div class="stat-foot">Needs follow-up</div></article>
+      <article class="stat-card"><div class="stat-top"><span>Avg. engagement</span><span class="stat-icon blue">◉</span></div><div class="stat-value"><span id="avg-engagement">82</span><small class="unit">/100</small></div><div class="stat-foot"><span class="trend">↗</span> Participation score</div></article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel attendance-panel">
+        <div class="panel-heading"><div><h3>Attendance overview</h3><p>Daily attendance status</p></div><span class="mini-badge">Today</span></div>
+        <div class="attendance-visual">
+          <div class="donut" id="donut"><div class="donut-center"><strong id="donut-rate">79%</strong><span>Present</span></div></div>
+          <div class="legend">
+            <div><span class="legend-dot present"></span><span>Present</span><strong id="legend-present">19</strong></div>
+            <div><span class="legend-dot absent"></span><span>Absent</span><strong id="legend-absent">3</strong></div>
+            <div><span class="legend-dot late"></span><span>Late</span><strong id="legend-late">2</strong></div>
+          </div>
+        </div>
+        <div class="panel-note"><span class="note-icon">i</span> Mark attendance in the Attendance tab to update this summary.</div>
+      </article>
+      <article class="panel engagement-panel">
+        <div class="panel-heading"><div><h3>Engagement snapshot</h3><p>Average class participation</p></div><span class="mini-badge green-badge">Live demo</span></div>
+        <div class="engagement-score"><div><strong id="engagement-big">82</strong><span>/ 100</span></div><span class="score-label">Class engagement</span></div>
+        <div class="bar-chart" id="engagement-bars" aria-label="Engagement category chart">
+          <div class="bar-group"><div class="bar-track"><div class="bar" style="height:82%"></div></div><span>Participation</span></div>
+          <div class="bar-group"><div class="bar-track"><div class="bar bar-alt" style="height:74%"></div></div><span>Activities</span></div>
+          <div class="bar-group"><div class="bar-track"><div class="bar" style="height:88%"></div></div><span>Focus</span></div>
+          <div class="bar-group"><div class="bar-track"><div class="bar bar-alt" style="height:68%"></div></div><span>Teamwork</span></div>
+          <div class="bar-group"><div class="bar-track"><div class="bar" style="height:80%"></div></div><span>Response</span></div>
+        </div>
+        <div class="panel-note"><span class="note-icon">i</span> Scores are manually entered demo indicators, not AI or camera-based measurements.</div>
+      </article>
+    </section>
+
+    <section class="panel student-panel" id="student-panel">
+      <div class="panel-heading students-heading"><div><h3 id="table-title">Student overview</h3><p>Attendance and engagement at a glance</p></div><div class="table-actions"><input id="search-students" class="search-input" placeholder="⌕  Search students" aria-label="Search students" /><button class="button button-light" id="export-csv">⇩ Export CSV</button></div></div>
+      <div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>ROLL NO.</th><th>ATTENDANCE</th><th>ENGAGEMENT</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="student-table"></tbody></table></div>
+      <div class="table-footer"><span id="table-count">Showing students</span><span class="privacy-note">● Demo data only</span></div>
+    </section>
+
+    <footer>Attendly · Multimodal Attendance & Engagement System <span>Student project prototype · v1.0</span></footer>
+  </main>
+
+  <dialog id="student-dialog">
+    <form id="student-form" method="dialog">
+      <div class="dialog-heading"><div><div class="eyebrow">STUDENT RECORD</div><h2 id="dialog-title">Add student</h2></div><button type="button" class="icon-button" id="close-dialog" aria-label="Close">✕</button></div>
+      <input type="hidden" id="student-id" />
+      <label>Full name<input id="student-name" required maxlength="70" placeholder="e.g. Aanya Sharma" /></label>
+      <div class="form-row"><label>Roll number<input id="student-roll" required maxlength="15" placeholder="e.g. 25" /></label><label>Engagement score (0–100)<input id="student-score" type="number" min="0" max="100" value="80" required /></label></div>
+      <label>Attendance status<select id="student-status"><option>Present</option><option>Absent</option><option>Late</option></select></label>
+      <div class="dialog-actions"><button type="button" class="button button-light" id="cancel-dialog">Cancel</button><button class="button button-primary" type="submit">Save student</button></div>
+      <p class="form-error" id="form-error" role="alert"></p>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
